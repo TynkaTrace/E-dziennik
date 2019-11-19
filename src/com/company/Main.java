@@ -118,6 +118,14 @@ public class Main {
         }
     }
 
+    public static void menuLogowaniaUcznia(){
+
+    }
+
+    public static void menuLogowaniaNauczyciela(){
+
+    }
+
     public static void menuLogowania(){
         String haslo;
         String haselko;
@@ -130,10 +138,10 @@ public class Main {
 
         switch (wybor){
             case 1:
-
+                menuLogowaniaUcznia();
                 break;
             case 2:
-
+                menuLogowaniaNauczyciela();
                 break;
             default:
                 System.out.println("Brak podanej operacji!");
@@ -211,7 +219,7 @@ public class Main {
 
 
         while (true){
-            menuNauczyciela();
+            menuLogowania();
         }
 
 
