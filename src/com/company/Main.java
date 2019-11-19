@@ -114,7 +114,7 @@ public class Main {
                     ilosc++;
                 }
             }
-            System.out.println("Srednia ucznia 13 to "+suma/ilosc);
+            System.out.println("Srednia uckkkkznia 13 to "+suma/ilosc);
         }
     }
 
