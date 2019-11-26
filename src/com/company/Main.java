@@ -289,19 +289,15 @@ public class Main {
         }
     }
 
-
-
     public static void main(String[] args) {
         bazaDanych.listaOcen.add(new Ocena(5 , 1, 13, "sprawdzian", "matematyka", 1));
         bazaDanych.listaOcen.add(new Ocena(2 , 1, 13, "sprawdzian", "matematyka", 1));
         bazaDanych.listaNauczycieli.add(new Nauczyciel("Jan", "Kowalski", 1, "plok"));
         bazaDanych.listaStudentow.add((new Student("Anna", "Nowak", 13, "1234")));
 
-
         while (true){
             menuLogowania();
         }
-
 
         /*Scanner scanner = new Scanner(System.in);
 
