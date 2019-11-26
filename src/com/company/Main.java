@@ -82,9 +82,9 @@ public class Main {
     }
 
     public static void menuDodadaniaUzytkownika(){
+        System.out.println("Wybierz operacje, ktora chcesz wykonac.");
         System.out.println("1. Dodaj nauczyciela.");
         System.out.println("2. Dodaj ucznia.");
-        System.out.println("Wybierz operacje, ktora chcesz wykonac.");
 
         int opcja = scanner.nextInt();
 
@@ -114,25 +114,83 @@ public class Main {
                     ilosc++;
                 }
             }
-            System.out.println("Srednia uckkkkznia 13 to "+suma/ilosc);
+            System.out.println("Srednia ucznia 13 to "+suma/ilosc);
         }
     }
 
     public static void menuLogowaniaUcznia(){
+        String haslo;
+        System.out.println("Wprowadz haslo.");
 
+        haslo=scanner.next();
+
+        for (Student student: bazaDanych.listaStudentow){
+            if(student.getHaselko().equals(haslo)){
+                menuUcznia();
+            }
+            else{
+                int wybor;
+                wybor=scanner.nextInt();
+                System.out.println("Bledne haslo!");
+                System.out.println("Wybierz kolejna akcje:");
+                System.out.println("1. Sproboj ponownie.");
+                System.out.println("2. Wroc do menu głównego.");
+
+                switch(wybor){
+                    case 1:
+                        menuLogowaniaUcznia();
+                        break;
+                    case 2:
+                        menuLogowania();
+                        break;
+                    default:
+                        System.out.println("Brak operacji!");
+                        menuLogowania();
+                        break;
+                }
+            }
+        }
     }
 
     public static void menuLogowaniaNauczyciela(){
+        System.out.println("Wprowadz haslo.");
 
+        String haslo;
+        haslo=scanner.next();
+
+        for (Nauczyciel nauczyciel: bazaDanych.listaNauczycieli){
+            if(nauczyciel.getHaslo().equals(haslo)){
+                menuNauczyciela();
+            }
+            else{
+                int wybor;
+                wybor=scanner.nextInt();
+                System.out.println("Bledne haslo!");
+                System.out.println("Wybierz kolejna akcje:");
+                System.out.println("1. Sproboj ponownie.");
+                System.out.println("2. Wroc do menu głównego.");
+
+                switch(wybor){
+                    case 1:
+                        menuLogowaniaNauczyciela();
+                        break;
+                    case 2:
+                        menuLogowania();
+                        break;
+                    default:
+                        System.out.println("Brak operacji!");
+                        menuLogowania();
+                        break;
+                }
+            }
+        }
     }
 
     public static void menuLogowania(){
-        String haslo;
-        String haselko;
-
-        System.out.println("Zaloguj się na konto:");
-        System.out.println("1. Ucznia.");
-        System.out.println("2. Nauczyciela.");
+        System.out.println("Wybierz operacje, ktora chcesz wykonac.");
+        System.out.println("1. Zaloguj sie na konto ucznia.");
+        System.out.println("2. Zaloguj sie na konto nauczyciela.");
+        System.out.println("3. Zamknij E-dziennik");
 
         int wybor=scanner.nextInt();
 
@@ -143,38 +201,50 @@ public class Main {
             case 2:
                 menuLogowaniaNauczyciela();
                 break;
+            case 3:
+                System.exit(0);
+                break;
             default:
                 System.out.println("Brak podanej operacji!");
+                menuLogowania();
                 break;
         }
 
     }
 
     public static void menuNauczyciela(){
+        System.out.println("Wybierz operacje, ktora chcesz wykonac.");
         System.out.println("1. Dodaj ocene.");
         System.out.println("2. Wyswietl oceny.");
         System.out.println("3. Wyswietl srednie uczniow.");
         System.out.println("4. Dodaj użytkownika.");
-        System.out.println("Wybierz operacje, ktora chcesz wykonac.");
-
+        System.out.println("5. Wyloguj sie.");
 
         int wybor = scanner.nextInt();
 
         switch (wybor){
             case 1:
                 dodajOcene();
+                menuNauczyciela();
                 break;
             case 2:
                 wyswietlWszystkieOceny();
+                menuNauczyciela();
                 break;
             case 3:
                 wyswietlSrednieUczniow();
+                menuNauczyciela();
                 break;
             case 4:
                 menuDodadaniaUzytkownika();
+                menuNauczyciela();
+                break;
+            case 5:
+                menuLogowania();
                 break;
             default:
                 System.out.println("Brak podanej operacji!");
+                menuNauczyciela();
                 break;
         }
     }
@@ -193,20 +263,29 @@ public class Main {
     }
 
     public static void menuUcznia(){
-        System.out.println("1. Wyświetl oceny");
-        System.out.println("2. Wyświetl średnią");
+        System.out.println("Wybierz operacje, ktora chcesz wykonac.");
+        System.out.println("1. Wyświetl oceny.");
+        System.out.println("2. Wyświetl średnią.");
+        System.out.println("3. Wyloguj sie.");
 
         int wybor = scanner.nextInt();
 
         switch (wybor){
             case 1:
                 wyswietlMojeOceny();
+                menuUcznia();
                 break;
             case 2:
                 wyswietlSrednieUczniow();
+                menuUcznia();
+                break;
+            case 3:
+                menuLogowania();
                 break;
             default:
                 System.out.println("Brak podanej operacji!");
+                menuUcznia();
+                break;
         }
     }
 
@@ -215,7 +294,8 @@ public class Main {
     public static void main(String[] args) {
         bazaDanych.listaOcen.add(new Ocena(5 , 1, 13, "sprawdzian", "matematyka", 1));
         bazaDanych.listaOcen.add(new Ocena(2 , 1, 13, "sprawdzian", "matematyka", 1));
-        wyswietlSrednieUczniow();
+        bazaDanych.listaNauczycieli.add(new Nauczyciel("Jan", "Kowalski", 1, "plok"));
+        bazaDanych.listaStudentow.add((new Student("Anna", "Nowak", 13, "1234")));
 
 
         while (true){
