@@ -3,14 +3,44 @@ package com.company;
 public class Student {
     String imie;
     String nazwisko;
-    int numerek;
+    int id;
     String haselko;
+    String login;
 
-    public Student (String imie, String nazwisko, int numerek, String haselko){
-        this.imie=imie;
-        this.nazwisko=nazwisko;
-        this.numerek=numerek;
-        this.haselko=haselko;
+
+    static int wolny = 1;
+
+    public Student(String imie, String nazwisko, String haselko, String login) {
+        this.imie = imie;
+        this.nazwisko = nazwisko;
+        this.id = wolny;
+        this.haselko = haselko;
+        this.login = login;
+        wolny++;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public static int getWolny() {
+        return wolny;
+    }
+
+    public static void setWolny(int wolny) {
+        Student.wolny = wolny;
     }
 
     public String getImie() {
@@ -29,15 +59,19 @@ public class Student {
         this.nazwisko = nazwisko;
     }
 
-    public int getNumerek() {
-        return numerek;
+    public int getid() {
+        return id;
     }
 
-    public void setNumerek(int numerek) {
-        this.numerek = numerek;
+    public void setid(int id) {
+        this.id = id;
     }
 
-    public String getHaselko() { return haselko; }
+    public String getHaselko() {
+        return haselko;
+    }
 
-    public void setHaselko(String haselko) { this.haselko = haselko; }
+    public void setHaselko(String haselko) {
+        this.haselko = haselko;
+    }
 }

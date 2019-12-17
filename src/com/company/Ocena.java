@@ -7,14 +7,16 @@ public class Ocena {
     public String powod;
     public String przedmiot;
     public int identyfikator;
+    static int wolny=1;
 
-    public Ocena(int waga, int nauczyciel, int student, String powod, String przedmiot, int identyfikator) {
+    public Ocena(int waga, int nauczyciel, int student, String powod, String przedmiot) {
         this.waga = waga;
         this.nauczyciel = nauczyciel;
         this.student = student;
         this.powod = powod;
         this.przedmiot = przedmiot;
-        this.identyfikator = identyfikator;
+        this.identyfikator = wolny;
+        wolny++;
     }
 
     public int getIdentyfikator() {

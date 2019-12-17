@@ -7,31 +7,28 @@ import java.util.Scanner;
 public class Main {
 
     static Scanner scanner = new Scanner(System.in);
-
+    private static int zalogowanyN;
+    private static int zalogowanyS;
     static DB bazaDanych = new DB();
 
     public static void dodajOcene() {
         int waga;
-        int nauczyciel;
         int student;
         String powod;
         String przedmiot;
-        int identyfikator;
+
 
         System.out.println("Jaka ma byc waga oceny?");
         waga = scanner.nextInt();
-        System.out.println("Jaki jest indentyfikator nauczyciela wystawiajacego?");
-        nauczyciel = scanner.nextInt();
         System.out.println("Jaki jest numerek ucznia, ktoremu chcesz wystawic ocene?");
         student = scanner.nextInt();
         System.out.println("Jaki jest powod wstawianej oceny?");
         powod = scanner.next();
         System.out.println("Z jakiego przedmiotu jest wstawiana ocena?");
         przedmiot = scanner.next();
-        System.out.println("Jaki ma być indentyfikator oceny?");
-        identyfikator = scanner.nextInt();
 
-        bazaDanych.listaOcen.add(new Ocena(waga, nauczyciel, student, powod, przedmiot, identyfikator));
+
+        bazaDanych.listaOcen.add(new Ocena(waga, zalogowanyN, student, powod, przedmiot));
     }
 
     public static void wyswietlWszystkieOceny() {
@@ -47,37 +44,37 @@ public class Main {
     public static void dodajNauczyciela() {
         String imie;
         String nazwisko;
-        int identyfikator;
         String haslo;
+        String login;
 
         System.out.println("Jakie jest imie nauczyciela?");
         imie = scanner.next();
         System.out.println("Jakie jest nazwisko nauczyciela?");
         nazwisko = scanner.next();
-        System.out.println("Jaki ma być identyfikator nauczyciela?");
-        identyfikator = scanner.nextInt();
+        System.out.println("Jaki ma być login nauczyciela?");
+        login = scanner.next();
         System.out.println("Jakie ma być haslo nauczyciela?");
         haslo = scanner.next();
 
-        bazaDanych.listaNauczycieli.add(new Nauczyciel(imie, nazwisko, identyfikator, haslo));
+        bazaDanych.listaNauczycieli.add(new Nauczyciel(imie, nazwisko, haslo, login));
     }
 
     public static void dodajStudenta() {
         String imie;
         String nazwisko;
-        int numerek;
         String haselko;
+        String login;
 
         System.out.println("Jakie jest imie ucznia?");
         imie = scanner.next();
         System.out.println("Jakie jest nazwisko ucznia?");
         nazwisko = scanner.next();
-        System.out.println("Jaki ma być numerek ucznia?");
-        numerek = scanner.nextInt();
         System.out.println("Jakie ma byc haslo ucznia?");
         haselko = scanner.next();
+        System.out.println("Jaki ma byc login ucznia?");
+        login=scanner.next();
 
-        bazaDanych.listaStudentow.add(new Student(imie, nazwisko, numerek, haselko));
+        bazaDanych.listaStudentow.add(new Student(imie, nazwisko, haselko, login));
     }
 
     public static void menuDodadaniaUzytkownika() {
@@ -116,7 +113,7 @@ public class Main {
         }
     }
 
-    public static void menuLogowaniaUcznia() {
+    public static int menuLogowaniaUcznia() {
         System.out.println("Wprowadz login");
 
         int numerek;
@@ -128,8 +125,9 @@ public class Main {
         haslo = scanner.next();
 
         for (Student student : bazaDanych.listaStudentow) {
-            if (student.getNumerek() == numerek) {
+            if (student.getid() == numerek) {
                 if (student.getHaselko().equals(haslo)) {
+                    zalogowanyS=student.getid();
                     menuUcznia();
                     break;
                 }
@@ -155,13 +153,14 @@ public class Main {
                 menuLogowania();
                 break;
         }
+        return numerek;
     }
 
     public static void menuLogowaniaNauczyciela() {
         System.out.println("Wprowadz login");
 
-        int identyfikator;
-        identyfikator = scanner.nextInt();
+        String login;
+        login = scanner.next();
 
         System.out.println("Wprowadz haslo.");
 
@@ -169,8 +168,9 @@ public class Main {
         haslo = scanner.next();
 
         for (Nauczyciel nauczyciel : bazaDanych.listaNauczycieli) {
-            if (nauczyciel.getIdentyfikator() == identyfikator) {
+            if (nauczyciel.getLogin() == login) {
                 if (nauczyciel.getHaslo().equals(haslo)) {
+                    zalogowanyN=nauczyciel.getIdentyfikator();
                     menuNauczyciela();
                     break;
                 }
@@ -266,7 +266,7 @@ public class Main {
             System.out.println("Brak ocen do wyswietlenia.");
         } else {
             for (Ocena ocena : bazaDanych.listaOcen) {
-                if (ocena.getStudent() == 13) {
+                if (ocena.getStudent() == zalogowanyS) {
                     System.out.println(ocena.getPrzedmiot() + " " + ocena.getWaga());
                 }
             }
@@ -301,10 +301,11 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        bazaDanych.listaOcen.add(new Ocena(5, 1, 13, "sprawdzian", "matematyka", 1));
-        bazaDanych.listaOcen.add(new Ocena(2, 1, 13, "sprawdzian", "matematyka", 1));
-        bazaDanych.listaNauczycieli.add(new Nauczyciel("Jan", "Kowalski", 1, "plok"));
-        bazaDanych.listaStudentow.add((new Student("Anna", "Nowak", 13, "1234")));
+        bazaDanych.listaOcen.add(new Ocena(5, 1, 13, "sprawdzian", "matematyka"));
+        bazaDanych.listaOcen.add(new Ocena(5, 1, 16, "sprawdzian", "matematyka"));
+        bazaDanych.listaOcen.add(new Ocena(2, 1, 13, "sprawdzian", "matematyka"));
+        bazaDanych.listaNauczycieli.add(new Nauczyciel("Jan", "Kowalski", "plok", "nauczyciel1"));
+        bazaDanych.listaStudentow.add((new Student("Anna", "Nowak","1234", "uczen1")));
 
         while (true) {
             menuLogowania();

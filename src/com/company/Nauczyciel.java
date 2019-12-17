@@ -5,14 +5,35 @@ public class Nauczyciel {
     public String nazwisko;
     public int identyfikator;
     public String haslo;
+    String login;
+    static int wolny=1;
 
-    public Nauczyciel (String imie, String nazwisko, int identyfikator, String haslo){
-        this.imie=imie;
-        this.nazwisko=nazwisko;
-        this.identyfikator=identyfikator;
-        this.haslo=haslo;
+
+
+    public static void setWolny(int wolny) {
+        Nauczyciel.wolny = wolny;
     }
 
+    public Nauczyciel (String imie, String nazwisko, String haslo, String login){
+        this.imie=imie;
+        this.nazwisko=nazwisko;
+        this.identyfikator=wolny;
+        this.haslo=haslo;
+        this.login=login;
+
+        wolny++;
+    }
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public static int getWolny() {
+        return wolny;
+    }
     public String getImie() {
         return imie;
     }
