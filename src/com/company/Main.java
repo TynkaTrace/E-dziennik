@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -97,27 +95,45 @@ public class Main {
         }
     }
 
-    public static void wyswietlSrednieUczniow() {
+    public static void wyswietlSredniaUcznia() {
         if (bazaDanych.listaOcen.isEmpty()) {
             System.out.println("Brak ocen do wyswietlenia.");
         } else {
             double suma = 0;
             double ilosc = 0;
             for (Ocena ocena : bazaDanych.listaOcen) {
-                if (ocena.getStudent() == 13) {
+                if (ocena.getStudent() == zalogowanyS) {
                     suma += ocena.getWaga();
                     ilosc++;
                 }
             }
-            System.out.println("Srednia ucznia 13 to " + suma / ilosc);
+            System.out.println("Srednia ucznia to " + suma / ilosc);
         }
     }
 
-    public static int menuLogowaniaUcznia() {
+    public static void wyswietlSrednieUczniow() {
+        if (bazaDanych.listaOcen.isEmpty()) {
+            System.out.println("Brak ocen do wyswietlenia.");
+        } else {
+            int i = 1;
+            double suma = 0;
+            double ilosc = 0;
+            for (Student student : bazaDanych.listaOcen) {
+                if (ocena.getStudent() == i) {
+                    suma += ocena.getWaga();
+                    ilosc++;
+                }
+                System.out.println("Srednia ucznia "+ i +" to " + suma / ilosc);
+                i++;
+            }
+        }
+    }
+
+    public static void menuLogowaniaUcznia() {
         System.out.println("Wprowadz login");
 
-        int numerek;
-        numerek = scanner.nextInt();
+        String login;
+        login = scanner.next();
 
         System.out.println("Wprowadz haslo.");
 
@@ -125,7 +141,7 @@ public class Main {
         haslo = scanner.next();
 
         for (Student student : bazaDanych.listaStudentow) {
-            if (student.getid() == numerek) {
+            if (student.getLogin().equals(login)) {
                 if (student.getHaselko().equals(haslo)) {
                     zalogowanyS=student.getid();
                     menuUcznia();
@@ -153,7 +169,6 @@ public class Main {
                 menuLogowania();
                 break;
         }
-        return numerek;
     }
 
     public static void menuLogowaniaNauczyciela() {
@@ -168,7 +183,7 @@ public class Main {
         haslo = scanner.next();
 
         for (Nauczyciel nauczyciel : bazaDanych.listaNauczycieli) {
-            if (nauczyciel.getLogin() == login) {
+            if (nauczyciel.getLogin().equals(login)) {
                 if (nauczyciel.getHaslo().equals(haslo)) {
                     zalogowanyN=nauczyciel.getIdentyfikator();
                     menuNauczyciela();
@@ -267,7 +282,7 @@ public class Main {
         } else {
             for (Ocena ocena : bazaDanych.listaOcen) {
                 if (ocena.getStudent() == zalogowanyS) {
-                    System.out.println(ocena.getPrzedmiot() + " " + ocena.getWaga());
+                    System.out.println(ocena.getWaga() + " " + ocena.getPrzedmiot());
                 }
             }
         }
@@ -287,7 +302,7 @@ public class Main {
                 menuUcznia();
                 break;
             case 2:
-                wyswietlSrednieUczniow();
+                wyswietlSredniaUcznia();
                 menuUcznia();
                 break;
             case 3:
@@ -301,11 +316,21 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        bazaDanych.listaOcen.add(new Ocena(5, 1, 13, "sprawdzian", "matematyka"));
-        bazaDanych.listaOcen.add(new Ocena(5, 1, 16, "sprawdzian", "matematyka"));
-        bazaDanych.listaOcen.add(new Ocena(2, 1, 13, "sprawdzian", "matematyka"));
+        bazaDanych.listaOcen.add(new Ocena(5, 1, 1, "sprawdzian", "matematyka"));
+        bazaDanych.listaOcen.add(new Ocena(5, 1, 2, "sprawdzian", "matematyka"));
+        bazaDanych.listaOcen.add(new Ocena(2, 1, 3, "sprawdzian", "matematyka"));
+        bazaDanych.listaOcen.add(new Ocena(6, 2, 1, "kartkówka", "fizyka"));
+        bazaDanych.listaOcen.add(new Ocena(4, 2, 2, "kartkówka", "fizyka"));
+        bazaDanych.listaOcen.add(new Ocena(2, 2, 3, "kartkówka", "fizyka"));
+        bazaDanych.listaOcen.add(new Ocena(3, 3, 1, "odpowiedź", "chemia"));
+        bazaDanych.listaOcen.add(new Ocena(4, 3, 2, "odpowiedź", "chemia"));
+        bazaDanych.listaOcen.add(new Ocena(1, 3, 3, "odpowiedź", "chemia"));
         bazaDanych.listaNauczycieli.add(new Nauczyciel("Jan", "Kowalski", "plok", "nauczyciel1"));
-        bazaDanych.listaStudentow.add((new Student("Anna", "Nowak","1234", "uczen1")));
+        bazaDanych.listaNauczycieli.add(new Nauczyciel("Janin", "Kowal", "ijuh", "nauczyciel2"));
+        bazaDanych.listaNauczycieli.add(new Nauczyciel("Janon", "Kowalki", "ygtf", "nauczyciel3"));
+        bazaDanych.listaStudentow.add((new Student("Anna", "Nowak","123", "uczen1")));
+        bazaDanych.listaStudentow.add((new Student("Jonna", "Nwak","456", "uczen2")));
+        bazaDanych.listaStudentow.add((new Student("Ana", "Noak","789", "uczen3")));
 
         while (true) {
             menuLogowania();
