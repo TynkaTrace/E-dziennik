@@ -54,7 +54,7 @@ public class Main {
         System.out.println("Jakie ma być haslo nauczyciela?");
         haslo = scanner.next();
 
-        bazaDanych.listaNauczycieli.add(new Nauczyciel(imie, nazwisko, haslo, login));
+        bazaDanych.listaNauczycieli.add(new Nauczyciel(imie, nazwisko, login, haslo));
     }
 
     public static void dodajStudenta() {
@@ -115,16 +115,16 @@ public class Main {
         if (bazaDanych.listaOcen.isEmpty()) {
             System.out.println("Brak ocen do wyswietlenia.");
         } else {
-            int i = 1;
             double suma = 0;
             double ilosc = 0;
-            for (Student student : bazaDanych.listaOcen) {
-                if (ocena.getStudent() == i) {
-                    suma += ocena.getWaga();
-                    ilosc++;
+            for (Student student:bazaDanych.listaStudentow) {
+                for (Ocena ocena : bazaDanych.listaOcen) {
+                    if (ocena.getStudent() == student.getId()) {
+                        suma += ocena.getWaga();
+                        ilosc++;
+                    }
                 }
-                System.out.println("Srednia ucznia "+ i +" to " + suma / ilosc);
-                i++;
+                System.out.println("Srednia ucznia " + student.getId() + " to " + suma / ilosc);
             }
         }
     }
